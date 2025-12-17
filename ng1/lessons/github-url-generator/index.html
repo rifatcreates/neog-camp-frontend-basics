@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="Your place to get started with semantic web development"
+    />
+    <title>neoG starter template</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="container">
+      <hgroup>
+        <h1>Github URL Generator</h1>
+        <p>get your github link url from just your username</p>
+      </hgroup>
+    </header>
+    <main class="container">
+      <fieldset role="group">
+        <input type="text" placeholder="Enter Your username" id="username" />
+        <input type="submit" value="Generate URL" id="btn" />
+      </fieldset>
+      <div id="result"></div>
+    </main>
+    <footer class="container neog-footer">
+      <small>
+        go from zero to hero at full stack development with
+        <a href="https://neog.camp">neog.camp</a>
+      </small>
+    </footer>
+    <script>
+      const btnElement = document.getElementById("btn");
+
+      function generateGithubLink() {
+        const resultElement = document.getElementById("result");
+        const username = document.getElementById("username").value;
+
+        resultElement.innerText = `https://github.com/${username}`;
+      }
+
+      btnElement.addEventListener("click", generateGithubLink);
+    </script>
+  </body>
+</html>

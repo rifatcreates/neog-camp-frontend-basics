@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Whatsapp Message Link Generator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <hgroup class="container">
+        <h1>Whatsapp Message Link Generator</h1>
+        <p>get a custom message by clicking wa.me link</p>
+      </hgroup>
+      <main class="container">
+        <section>
+          <input
+            type="number"
+            placeholder="Enter Whatsapp Phone Number"
+            id="number"
+          />
+          <input
+            type="text"
+            placeholder="Enter Your Custom Message"
+            id="message"
+          />
+          <input
+            type="button"
+            id="btn"
+            value="Generate Whatsapp Link & Message"
+          />
+        </section>
+        <div id="result"></div>
+      </main>
+      <footer class="container neog-footer">
+        <small>
+          go from zero to hero at full stack development with
+          <a href="https://neog.camp">neog.camp</a>
+        </small>
+      </footer>
+      <script>
+        const btnElement = document.getElementById("btn");
+
+        function handleWamiLinkAndMessage() {
+          const resultElement = document.getElementById("result");
+          const message = document.getElementById("message").value;
+          const number = document.getElementById("number").value;
+
+          const encodedMessage = encodeURIComponent(message);
+
+          resultElement.innerHTML = `<p>https://wa.me/+88${number}?text=${encodedMessage}</p>`;
+        }
+
+        btnElement.addEventListener("click", handleWamiLinkAndMessage);
+      </script>
+    </header>
+  </body>
+</html>

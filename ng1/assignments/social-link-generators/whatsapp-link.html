@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="Your place to get started with semantic web development"
+    />
+    <title>Whatsapp Link Generator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="container">
+      <hgroup>
+        <h1>Whatsapp Link Generator</h1>
+        <p>Get your Whatsapp link from just your phone number</p>
+      </hgroup>
+    </header>
+    <main class="container">
+      <section>
+        <input
+          type="number"
+          placeholder="Enter Whatsapp Phone Number"
+          id="number"
+        />
+        <input type="button" id="btn" value="Generate WAMI Link" />
+      </section>
+      <div id="result"></div>
+    </main>
+    <footer class="container neog-footer">
+      <small>
+        go from zero to hero at full stack development with
+        <a href="https://neog.camp">neog.camp</a>
+      </small>
+    </footer>
+    <script>
+      const btnElement = document.getElementById("btn");
+
+      function displayWamiLink() {
+        const number = document.getElementById("number").value;
+        const resultElement = document.getElementById("result");
+        resultElement.innerHTML = `<p>https://wa.me/+88${number}</p>`;
+      }
+
+      btnElement.addEventListener("click", displayWamiLink);
+    </script>
+  </body>
+</html>

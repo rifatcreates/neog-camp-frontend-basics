@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Tweet Link Generator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="container">
+      <hgroup>
+        <h1>Tweet Link Generator</h1>
+        <p>generate a custom tweet link</p>
+      </hgroup>
+    </header>
+    <main class="container">
+      <section>
+        <input type="text" placeholder="Enter Tweet" id="tweet" />
+        <input type="button" value="Generate Tweet Link" id="btn" />
+      </section>
+      <div id="result"></div>
+    </main>
+    <footer class="container neog-footer">
+      <small>
+        go from zero to hero at full stack development with
+        <a href="https://neog.camp">neog.camp</a>
+      </small>
+    </footer>
+    <script>
+      const btnElement = document.getElementById("btn");
+
+      function handleTweet() {
+        const tweet = document.getElementById("tweet").value;
+        const resultElement = document.getElementById("result");
+        const encodedTweet = encodeURIComponent(tweet);
+
+        result.innerHTML = `<p>https://twitter.com/intent/tweet?text=${encodedTweet}</p>`;
+      }
+
+      btnElement.addEventListener("click", handleTweet);
+    </script>
+  </body>
+</html>
