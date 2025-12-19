@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bill Batwara</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="index.html">Paise Planner</a></li>
+          <li><a href="kurrency.html">Kurrency Konverter</a></li>
+          <li><a href="discount.html">Discount Deducer</a></li>
+          <li><a href="bill.html">Bill Batwara</a></li>
+        </ul>
+      </nav>
+      <hgroup>
+        <h1>Bill Batwara</h1>
+        <p>bill baaton nafrat nahi</p>
+      </hgroup>
+    </header>
+    <main class="container">
+      <section>
+        <p>Just out of party and everyone needs to pay, but how much?</p>
+        <div class="grid">
+          <input type="number" placeholder="Total bill" id="bill" />
+          <input type="number" placeholder="Number of people" id="people" />
+          <button type="button" id="btn">Split the Bill</button>
+        </div>
+      </section>
+      <section>
+        <p id="result"></p>
+      </section>
+    </main>
+    <footer class="container neog-footer">
+      <small>
+        go from zero to hero at full stack development with
+        <a href="https://neog.camp">neog.camp</a>
+      </small>
+    </footer>
+    <script>
+      const btn = document.getElementById("btn");
+
+      function calculateBill() {
+        const totalBill = parseFloat(document.getElementById("bill").value);
+        const totalPeople = parseFloat(document.getElementById("people").value);
+
+        const billPerPerson = totalBill / totalPeople;
+
+        const result = document.getElementById("result");
+        result.innerText = `Each person should pay Rs. ${billPerPerson}`;
+      }
+
+      btn.addEventListener("click", calculateBill);
+    </script>
+  </body>
+</html>

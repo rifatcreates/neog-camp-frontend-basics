@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kurrency Konverter</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="index.html">Paise Planner</a></li>
+          <li><a href="kurrency.html">Kurrency Konverter</a></li>
+          <li><a href="discount.html">Discount Deducer</a></li>
+          <li><a href="bill.html">Bill Batwara</a></li>
+        </ul>
+      </nav>
+      <hgroup>
+        <h1>Kurrency Konverter</h1>
+        <p>convert from USD to INR</p>
+      </hgroup>
+    </header>
+    <main class="container">
+      <section class="grid">
+        <input type="number" placeholder="Enter amount in USD" id="usd" />
+        <button type="button" id="btn">Convert to INR</button>
+      </section>
+      <section>
+        <p id="result"></p>
+      </section>
+    </main>
+    <footer class="container neog-footer">
+      <small>
+        go from zero to hero at full stack development with
+        <a href="https://neog.camp">neog.camp</a>
+      </small>
+    </footer>
+    <script>
+      const btn = document.getElementById("btn");
+
+      function displayINR() {
+        const usdAmount = parseFloat(document.getElementById("usd").value);
+        const inrAmount = usdAmount * 89.47;
+
+        const result = document.getElementById("result");
+        result.innerText = `${usdAmount} USD equals to INR ${inrAmount}`;
+      }
+
+      btn.addEventListener("click", displayINR);
+    </script>
+  </body>
+</html>

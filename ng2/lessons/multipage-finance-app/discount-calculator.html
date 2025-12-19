@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Discount Deducer</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="index.html">Paise Planner</a></li>
+          <li><a href="kurrency.html">Kurrency Konverter</a></li>
+          <li><a href="discount.html">Discount Deducer</a></li>
+          <li><a href="bill.html">Bill Batwara</a></li>
+        </ul>
+      </nav>
+      <hgroup>
+        <h1>Discount Deducer</h1>
+        <p>let's see how much you saved...</p>
+      </hgroup>
+    </header>
+    <main class="container">
+      <section>
+        <p>
+          Enter the total amount and discount percentage to see the final price
+          and the amount saved!
+        </p>
+        <div class="grid">
+          <input type="number" placeholder="Enter total amount" id="total" />
+          <input
+            type="number"
+            placeholder="Enter discount percentage"
+            id="discount"
+          />
+          <button type="button" id="btn">Calculate Discount</button>
+        </div>
+      </section>
+      <section>
+        <p id="result"></p>
+      </section>
+    </main>
+    <footer class="container neog-footer">
+      <small>
+        go from zero to hero at full stack development with
+        <a href="https://neog.camp">neog.camp</a>
+      </small>
+    </footer>
+    <script>
+      const btn = document.getElementById("btn");
+
+      function calculateDiscount() {
+        const totalAmount = parseFloat(document.getElementById("total").value);
+        const discountPercentage = parseFloat(
+          document.getElementById("discount").value
+        );
+
+        const discountedPrice = (totalAmount * discountPercentage) / 100;
+        const finalPrice = totalAmount - discountedPrice;
+
+        const result = document.getElementById("result");
+        result.innerText = `You saved Rs. ${discountedPrice}. Final price is Rs. ${finalPrice}.`;
+      }
+
+      btn.addEventListener("click", calculateDiscount);
+    </script>
+  </body>
+</html>
