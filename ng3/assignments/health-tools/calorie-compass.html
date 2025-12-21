@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="Your place to get started with semantic web development"
+    />
+    <title>Calorie Compass</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="index.html">BMI Buddy</a></li>
+          <li><a href="calorie.html">Calorie Compass</a></li>
+          <li><a href="water.html">Water Watcher</a></li>
+          <li><a href="step.html">Step Sankhya</a></li>
+        </ul>
+      </nav>
+      <hgroup>
+        <h1>Calorie Compass</h1>
+        <p>calculate your daily calorie requirement</p>
+      </hgroup>
+    </header>
+    <main class="container">
+      <p>
+        Set your age, gender, and activity level to see your calorie requirement
+      </p>
+      <section>
+        <input type="number" placeholder="Your age" id="age" />
+        <select id="gender">
+          <option value="female" selected>Female</option>
+          <option value="male">Male</option>
+        </select>
+        <select id="activity">
+          <option value="sedentry" selected>Sedentry</option>
+          <option value="light">Light</option>
+          <option value="active">Active</option>
+        </select>
+        <button type="button" id="btn">Estimate Calories</button>
+      </section>
+      <section>
+        <p id="result"></p>
+      </section>
+    </main>
+    <footer class="container neog-footer">
+      <small>
+        go from zero to hero at full stack development with
+        <a href="https://neog.camp">neog.camp</a>
+      </small>
+    </footer>
+    <script>
+      const btnElement = document.getElementById("btn");
+
+      function calorieNeededForFemale(activity) {
+        if (activity === "sedentry") {
+          return 1800;
+        } else if (activity === "light") {
+          return 2000;
+        } else {
+          return 2200;
+        }
+      }
+
+      function calorieNeededForMale(activity) {
+        if (activity === "sedentry") {
+          return 2000;
+        } else if (activity === "light") {
+          return 2200;
+        } else {
+          return 2500;
+        }
+      }
+
+      function calorieNeededPerDay(gender, activity) {
+        if (gender === "female") {
+          return calorieNeededForFemale(activity);
+        } else {
+          return calorieNeededForMale(activity);
+        }
+      }
+
+      function displayCalorieRequirement() {
+        const age = parseFloat(document.getElementById("age").value);
+        const gender = document.getElementById("gender").value;
+        const activity = document.getElementById("activity").value;
+        const result = document.getElementById("result");
+
+        if (age < 1) {
+          result.innerText = "Please enter a valid age";
+          return;
+        }
+
+        const calorieNeeded = calorieNeededPerDay(gender, activity);
+        result.innerText = `Estimated daily calorie needed: ${calorieNeeded} kcal`;
+      }
+
+      btnElement.addEventListener("click", displayCalorieRequirement);
+    </script>
+  </body>
+</html>

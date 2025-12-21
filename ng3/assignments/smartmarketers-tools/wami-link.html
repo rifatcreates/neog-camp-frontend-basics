@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WAMI Link Generator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+  </head>
+
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="index.html">SmartMarketer Tools</a></li>
+        </ul>
+        <ul>
+          <li><a href="wami.html">WAMI Link</a></li>
+          <li><a href="twitter.html">Twitter Link Generator</a></li>
+          <li><a href="github.html">GitHub Link Generator</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container">
+      <h1>WAMI Link Generator</h1>
+      <p>
+        Create a custom WhatsApp message and send it to your targeted audience
+      </p>
+      <hr />
+      <section>
+        <input
+          type="number"
+          placeholder="Enter your whatsapp number"
+          id="number"
+        />
+        <select id="message">
+          <option value="" selected disabled>--Choose a message--</option>
+          <option value="Hi! I'm interested in your product.">
+            Hi! I'm interested in your product.
+          </option>
+          <option value="Hello, Can we connect regarding a service?">
+            Hello, Can we connect regarding a service?
+          </option>
+          <option value="Please share more details.">
+            Please share more details.
+          </option>
+        </select>
+        <input type="button" value="Generate WAMI Link" id="btn" />
+      </section>
+      <section>
+        <p id="result"></p>
+      </section>
+    </main>
+
+    <script>
+      const btnElement = document.getElementById("btn");
+
+      function generateWamiLink() {
+        const number = document.getElementById("number").value;
+        const message = document.getElementById("message").value;
+        const resultElement = document.getElementById("result");
+
+        const encodedMessage = encodeURIComponent(message);
+        resultElement.innerText = `https://wa.me/+88${number}?text=${encodedMessage}`;
+      }
+
+      btnElement.addEventListener("click", generateWamiLink);
+    </script>
+  </body>
+</html>

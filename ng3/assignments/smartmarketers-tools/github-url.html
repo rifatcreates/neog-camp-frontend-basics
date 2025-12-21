@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GitHub URL Generator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+  </head>
+
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="index.html">SmartMarketer Tools</a></li>
+        </ul>
+        <ul>
+          <li><a href="wami.html">WAMI Link</a></li>
+          <li><a href="twitter.html">Twitter Link Generator</a></li>
+          <li><a href="github.html">GitHub Link Generator</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container">
+      <hgroup>
+        <h1>GitHub URL Generator</h1>
+        <p>Get your github link URL from just your phone number</p>
+      </hgroup>
+      <hr />
+      <section>
+        <input type="text" placeholder="Enter github username" id="username" />
+        <input type="button" value="Generate URL" id="btn" />
+      </section>
+      <section>
+        <p id="result"></p>
+      </section>
+    </main>
+
+    <script>
+      const btnElement = document.getElementById("btn");
+
+      function displayUrl() {
+        const username = document.getElementById("username").value;
+        const resultElement = document.getElementById("result");
+
+        resultElement.innerText = `https://github.com/${username}`;
+      }
+
+      btnElement.addEventListener("click", displayUrl);
+    </script>
+  </body>
+</html>

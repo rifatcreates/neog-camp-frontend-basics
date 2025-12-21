@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Twitter Link Generator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+  </head>
+
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="index.html">SmartMarketer Tools</a></li>
+        </ul>
+        <ul>
+          <li><a href="wami.html">WAMI Link</a></li>
+          <li><a href="twitter.html">Twitter Link Generator</a></li>
+          <li><a href="github.html">GitHub Link Generator</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container">
+      <hgroup>
+        <h1>Twitter Link Generator</h1>
+        <p>Get your custom Tweet</p>
+      </hgroup>
+      <hr />
+      <section>
+        <input type="text" placeholder="Enter Tweet" id="tweet" />
+        <input type="button" value="Generate Tweet Link" id="btn" />
+      </section>
+      <section>
+        <p id="result"></p>
+      </section>
+    </main>
+
+    <script>
+      const btnElement = document.getElementById("btn");
+
+      function generateTweetLink() {
+        const tweet = document.getElementById("tweet").value;
+        const resultElement = document.getElementById("result");
+
+        const encodedTweet = encodeURIComponent(tweet);
+        result.innerText = `https://twitter.com/intent/tweet?text=${encodedTweet}`;
+      }
+
+      btnElement.addEventListener("click", generateTweetLink);
+    </script>
+  </body>
+</html>

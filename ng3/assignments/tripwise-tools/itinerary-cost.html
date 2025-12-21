@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Itinerary Cost Estimator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+  </head>
+
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="index.html" class="contrast">TripWise Tools</a></li>
+        </ul>
+        <ul>
+          <li><a href="speed.html">Average Speed</a></li>
+          <li><a href="eta.html">ETA</a></li>
+          <li><a href="fuel.html">Fuel Cost</a></li>
+          <li><a href="itinerary.html">Itinerary Cost</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container">
+      <h2>Itinerary Cost Estimator</h2>
+
+      <section>
+        <label for="transport">Transport Cost:</label>
+        <input type="number" id="transport" />
+
+        <label for="hotelType">Hotel Type:</label>
+        <select id="hotelType">
+          <option value="budget">Budget</option>
+          <option value="standard">Standard</option>
+          <option value="luxury">Luxury</option>
+        </select>
+
+        <label for="food">Food Cost:</label>
+        <input type="number" id="food" />
+
+        <label for="activities">Activities Cost:</label>
+        <input type="number" id="activities" />
+
+        <input type="button" value="Calculate Total Cost" id="btn" />
+      </section>
+
+      <section>
+        <p id="result"></p>
+      </section>
+    </main>
+
+    <script>
+      const btnElement = document.getElementById("btn");
+
+      function calculateItineraryCost() {
+        const transport = parseFloat(
+          document.getElementById("transport").value
+        );
+        const hotelType = document.getElementById("hotelType").value;
+        const food = parseFloat(document.getElementById("food").value);
+        const activities = parseFloat(
+          document.getElementById("activities").value
+        );
+        const resultElement = document.getElementById("result");
+
+        // Determine hotel cost
+        let hotelCost = 0;
+        if (hotelType === "budget") hotelCost = 1000;
+        else if (hotelType === "standard") hotelCost = 2500;
+        else if (hotelType === "luxury") hotelCost = 3000;
+
+        // Calculate total
+        const totalCost = transport + hotelCost + food + activities;
+        const finalCost = totalCost.toFixed(2);
+
+        resultElement.innerText = `Total Trip Cost: ${finalCost} Rs.`;
+      }
+
+      btnElement.addEventListener("click", calculateItineraryCost);
+    </script>
+  </body>
+</html>

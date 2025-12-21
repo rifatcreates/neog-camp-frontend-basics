@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="Your place to get started with semantic web development"
+    />
+    <title>Water Watcher</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="index.html">BMI Buddy</a></li>
+          <li><a href="calorie.html">Calorie Compass</a></li>
+          <li><a href="water.html">Water Watcher</a></li>
+          <li><a href="step.html">Step Sankhya</a></li>
+        </ul>
+      </nav>
+      <hgroup>
+        <h1>Water Watcher</h1>
+        <p>daily water intake suggetion</p>
+      </hgroup>
+    </header>
+    <main class="container">
+      <p>Set your weight and season for get water intake</p>
+      <section>
+        <input type="number" placeholder="Weight in kg" id="weight" />
+        <select id="season">
+          <option value="Summer" selected>Summer</option>
+          <option value="winter">Winter</option>
+          <option value="monsoon">Monsoon</option>
+        </select>
+        <button type="button" id="btn">Suggest Water Intake</button>
+      </section>
+      <section>
+        <p id="result"></p>
+      </section>
+    </main>
+    <footer class="container neog-footer">
+      <small>
+        go from zero to hero at full stack development with
+        <a href="https://neog.camp">neog.camp</a>
+      </small>
+    </footer>
+    <script>
+      const btnElement = document.getElementById("btn");
+
+      function baseWaterIntake(weight) {
+        if (weight < 50) {
+          return 1.5;
+        } else if (weight <= 70) {
+          return 2;
+        } else {
+          return 2.5;
+        }
+      }
+
+      function seasonBasedIntake(season) {
+        if (season === "summer") {
+          return 0.5;
+        } else if (season === "winter") {
+          return 0.3;
+        } else {
+          return;
+        }
+      }
+
+      function displayWaterIntake() {
+        const weight = parseFloat(document.getElementById("weight").value);
+        const season = document.getElementById("season").value;
+        const result = document.getElementById("result");
+
+        if (weight < 1) {
+          result.innerText = "Enter a valid weight.";
+          return;
+        }
+
+        const baseIntake = baseWaterIntake(weight);
+        const seasonIntake = seasonBasedIntake(season);
+
+        const totalIntake = baseIntake + seasonIntake;
+        result.innerText = `Drink at least ${totalIntake} L of water daily`;
+      }
+
+      btnElement.addEventListener("click", displayWaterIntake);
+    </script>
+  </body>
+</html>

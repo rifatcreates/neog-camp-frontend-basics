@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ETA Calculator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="index.html" class="contrast">TripWise Tools</a></li>
+        </ul>
+        <ul>
+          <li><a href="speed.html">Average Speed</a></li>
+          <li><a href="eta.html">ETA</a></li>
+          <li><a href="fuel.html">Fuel Cost</a></li>
+          <li><a href="itinerary.html">Itinerary Cost</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main class="container">
+      <h2>ETA Calculator</h2>
+      <section>
+        <label for="distance">Distance (km):</label>
+        <input type="number" id="distance" />
+        <label for="speed">Speed (km/h):</label>
+        <input type="number" id="speed" />
+        <input type="button" value="Calculate ETA" id="btn" />
+      </section>
+      <section>
+        <p id="result"></p>
+      </section>
+    </main>
+    <script>
+      const btnElement = document.getElementById("btn");
+
+      function displayETA() {
+        const distance = parseFloat(document.getElementById("distance").value);
+        const speed = parseFloat(document.getElementById("speed").value);
+        const resultElement = document.getElementById("result");
+
+        const eta = distance / speed;
+        const fixedETA = eta.toFixed(2);
+        resultElement.innerText = `Estimated Time of Arrival: ${fixedETA} hours`;
+      }
+
+      btnElement.addEventListener("click", displayETA);
+    </script>
+  </body>
+</html>

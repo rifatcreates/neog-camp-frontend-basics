@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="Your place to get started with semantic web development"
+    />
+    <title>BMI Buddy</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="index.html">BMI Buddy</a></li>
+          <li><a href="calorie.html">Calorie Compass</a></li>
+          <li><a href="water.html">Water Watcher</a></li>
+          <li><a href="step.html">Step Sankhya</a></li>
+        </ul>
+      </nav>
+      <hgroup>
+        <h1>BMI Budddy</h1>
+        <p>calculate your BMI</p>
+      </hgroup>
+    </header>
+    <main class="container">
+      <p>Set your weight, height, and gender to see your BMI</p>
+      <section>
+        <input type="number" placeholder="Weight in kg" id="weight" />
+        <input type="number" placeholder="Height in cm" id="height" />
+        <select id="gender">
+          <option value="female" selected>Female</option>
+          <option value="male">Male</option>
+        </select>
+        <button type="button" id="btn">Check My BMI</button>
+      </section>
+      <section>
+        <p id="result"></p>
+      </section>
+    </main>
+    <footer class="container neog-footer">
+      <small>
+        go from zero to hero at full stack development with
+        <a href="https://neog.camp">neog.camp</a>
+      </small>
+    </footer>
+    <script>
+      const btnElement = document.getElementById("btn");
+
+      function calculateCategoryForFemale(bmi) {
+        if (bmi < 18) {
+          return "Underweight";
+        } else if (bmi < 24) {
+          return "Normal";
+        } else if (bmi < 29) {
+          return "Overweight";
+        } else {
+          return "Obese";
+        }
+      }
+
+      function calculateCategoryForMale(bmi) {
+        if (bmi < 18.5) {
+          return "Underweight";
+        } else if (bmi < 25) {
+          return "Normal";
+        } else if (bmi < 30) {
+          return "Overweight";
+        } else {
+          return "Obese";
+        }
+      }
+
+      function calculateCategory(gender, bmi) {
+        if (gender === "female") {
+          return calculateCategoryForFemale(bmi);
+        } else {
+          return calculateCategoryForMale(bmi);
+        }
+      }
+
+      function displayBmi() {
+        const weight = parseFloat(document.getElementById("weight").value);
+        const height =
+          parseFloat(document.getElementById("height").value) / 100;
+        const gender = parseFloat(document.getElementById("gender").value);
+        const resultElement = document.getElementById("result");
+
+        if (weight < 1 || height < 1) {
+          resultElement.innerText = "Please enter valid weight and height";
+          return;
+        }
+
+        const bmi = weight / (height * height);
+        const finalBmi = bmi.toFixed(2);
+        const genderInfo = calculateCategory(gender, finalBmi);
+
+        resultElement.innerText = `BMI: ${finalBmi} - ${genderInfo}`;
+      }
+
+      btnElement.addEventListener("click", displayBmi);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Average Speed Calculator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="index.html" class="contrast">TripWise Tools</a></li>
+        </ul>
+        <ul>
+          <li><a href="speed.html">Average Speed</a></li>
+          <li><a href="eta.html">ETA</a></li>
+          <li><a href="fuel.html">Fuel Cost</a></li>
+          <li><a href="itinerary.html">Itinerary Cost</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main class="container">
+      <h2>Average Speed Calculator</h2>
+      <section>
+        <label for="distance">Distance (km):</label>
+        <input type="number" id="distance" />
+        <label for="time">Time (hours):</label>
+        <input type="number" id="time" />
+        <input type="button" value="Calculate Speed" id="btn" />
+      </section>
+      <section>
+        <p id="result"></p>
+      </section>
+    </main>
+    <script>
+      const btnElement = document.getElementById("btn");
+
+      function displayAverageSpeed() {
+        const distance = parseFloat(document.getElementById("distance").value);
+        const time = parseFloat(document.getElementById("time").value);
+        const resultElement = document.getElementById("result");
+
+        const speed = distance / time;
+        resultElement.innerText = `Average Speed: ${speed} km/h`;
+      }
+
+      btnElement.addEventListener("click", displayAverageSpeed);
+    </script>
+  </body>
+</html>
