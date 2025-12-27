@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Giffy</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/taffydb/taffy-min.js"></script>
+    <script src="js/global-taffy-sync.js" defer></script>
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="category.html">Category</a></li>
+            <li><a href="rating.html">Ratings</a></li>
+            <li><a href="likes.html">Likes</a></li>
+            <li><a href="add-gif.html">Add Gifs</a></li>
+          </ul>
+        </nav>
+      </nav>
+      <hgroup>
+        <h1>Add a New GIF</h1>
+      </hgroup>
+    </header>
+    <main class="container">
+      <section>
+        <input type="text" placeholder="Title" id="title" />
+        <input type="text" placeholder="Description" id="description" />
+        <select id="category">
+          <option value="Reaction">Reaction</option>
+          <option value="Cute">Cute</option>
+          <option value="Meme">Meme</option>
+          <option value="Other">Other</option>
+        </select>
+        <input type="url" placeholder="GIF URL" id="gif_url" />
+
+        <fieldset>
+          <legend>Select Rating</legend>
+          <input type="radio" value="1" id="one" name="rating" checked />
+          <label for="one">1</label>
+          <input type="radio" value="2" id="two" name="rating" />
+          <label for="two">2</label>
+          <input type="radio" value="3" id="three" name="rating" />
+          <label for="three">3</label>
+          <input type="radio" value="4" id="four" name="rating" />
+          <label for="four">4</label>
+          <input type="radio" value="5" id="five" name="rating" />
+          <label for="five">5</label>
+        </fieldset>
+
+        <button type="button" id="btn">Add GIF</button>
+      </section>
+      <div id="result"></div>
+    </main>
+    <footer class="container neog-footer">
+      <small>
+        go from zero to hero at full stack development with
+        <a href="https://neog.camp">neog.camp</a>
+      </small>
+    </footer>
+    <script>
+      const btnElement = document.getElementById("btn");
+
+      function newId() {
+        let id = vibeBoardDB().count() + 1;
+        return id;
+      }
+
+      function addNewGif() {
+        const resultElement = document.getElementById("result");
+        const title = document.getElementById("title").value;
+        const description = document.getElementById("description").value;
+        const category = document.getElementById("category").value;
+        const gif_url = document.getElementById("gif_url").value;
+        const rating = document.querySelector(
+          `input[name = "rating"]:checked`
+        ).value;
+
+        if (!title || !description || !gif_url) {
+          resultElement.innerHTML = `<p>Provide all the information correctly.</p>`;
+          return;
+        }
+
+        const newGif = {
+          gif_id: newId(),
+          title,
+          description,
+          category,
+          gif_url,
+          rating,
+          likes: 0,
+          created_at: new Date(),
+        };
+
+        vibeBoardDB.insert(newGif);
+        resultElement.innerHTML = `<p>New GIF added successfully!!!</p>`;
+      }
+
+      btnElement.addEventListener("click", addNewGif);
+    </script>
+  </body>
+</html>

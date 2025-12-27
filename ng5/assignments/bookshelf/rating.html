@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Top Rated Books</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/taffydb/taffy-min.min.js"></script>
+    <script src="js/global-taffy-sync.js" defer></script>
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="index.html">Dashboard</a></li>
+          <li><a href="category.html">Category</a></li>
+          <li><a href="rating.html">Ratings</a></li>
+          <li><a href="likes.html">Likes</a></li>
+          <li><a href="add-book.html">Add Book</a></li>
+        </ul>
+      </nav>
+      <hgroup>
+        <h1>Top Rated Books</h1>
+      </hgroup>
+    </header>
+    <main class="container">
+      <section>
+        <div id="container" class="card-style"></div>
+      </section>
+    </main>
+    <footer class="container neog-footer">
+      <small>
+        go from zero to hero at full stack development with
+        <a href="https://neog.camp">neog.camp</a>
+      </small>
+    </footer>
+    <script>
+      function bookDetails(book) {
+        return `<article class="article-style">
+                  <img src="${book.cover_url}" alt="${book.title}" class="img-style" />
+                  <h3>${book.title}</h3>
+                  <span class="top-space-style">⭐${book.rating}</span>
+                </article>`;
+      }
+
+      function displayTopRatedBooks() {
+        const books = bookShelfDB({ rating: { gte: 4 } })
+          .order("rating desc")
+          .get();
+
+        const bookHtml = books.map(bookDetails);
+        document.getElementById("container").innerHTML = bookHtml.join("");
+      }
+
+      document.addEventListener("DOMContentLoaded", displayTopRatedBooks);
+    </script>
+  </body>
+</html>

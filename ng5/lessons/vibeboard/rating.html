@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Giffy</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/taffydb/taffy-min.js"></script>
+    <script src="js/global-taffy-sync.js" defer></script>
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="category.html">Category</a></li>
+            <li><a href="rating.html">Ratings</a></li>
+            <li><a href="likes.html">Likes</a></li>
+            <li><a href="add-gif.html">Add Gifs</a></li>
+          </ul>
+        </nav>
+      </nav>
+      <hgroup>
+        <h1>Top Rated GIFs</h1>
+      </hgroup>
+    </header>
+    <main class="container">
+      <section>
+        <div id="container" class="card-style"></div>
+      </section>
+    </main>
+    <footer class="container neog-footer">
+      <small>
+        go from zero to hero at full stack development with
+        <a href="https://neog.camp">neog.camp</a>
+      </small>
+    </footer>
+    <script>
+      function gifCard(gif) {
+        return `<article class="article-style">
+                  <img src="${gif.gif_url}" alt="${gif.title}" class="img-style" />
+                  <h3>${gif.title}</h3>
+                  <span class="top-space-style">⭐${gif.rating}</span>
+                </article>`;
+      }
+
+      function displayGifs() {
+        const gifs = vibeBoardDB({ rating: { gte: 4 } }).get();
+        const card = gifs.map(gifCard).join("");
+
+        const container = document.getElementById("container");
+        container.innerHTML = card;
+      }
+
+      document.addEventListener("DOMContentLoaded", displayGifs);
+    </script>
+  </body>
+</html>

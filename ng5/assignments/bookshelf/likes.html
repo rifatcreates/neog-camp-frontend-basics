@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Popular Books by Likes</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/taffydb/taffy-min.min.js"></script>
+    <script src="js/global-taffy-sync.js" defer></script>
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="index.html">Dashboard</a></li>
+          <li><a href="category.html">Category</a></li>
+          <li><a href="rating.html">Ratings</a></li>
+          <li><a href="likes.html">Likes</a></li>
+          <li><a href="add-book.html">Add Book</a></li>
+        </ul>
+      </nav>
+      <hgroup>
+        <h1>Most Liked Books by Category</h1>
+      </hgroup>
+    </header>
+    <main class="container">
+      <section>
+        <select id="category">
+          <option value="Fiction">Fiction</option>
+          <option value="Self-Help">Self-Help</option>
+          <option value="Science">Science</option>
+          <option value="Other">Other</option>
+        </select>
+        <button type="button" id="btn">Show Popular Books</button>
+      </section>
+      <div id="container" class="card-style"></div>
+    </main>
+    <footer class="container neog-footer">
+      <small>
+        go from zero to hero at full stack development with
+        <a href="https://neog.camp">neog.camp</a>
+      </small>
+    </footer>
+    <script>
+      const btnElement = document.getElementById("btn");
+
+      function bookDetails(book) {
+        return `<article class="article-style">
+                  <img src="${book.cover_url}" alt="${book.title}" class="img-style" />
+                  <span class="top-space-style">❤️${book.likes}</span>
+                </article>`;
+      }
+
+      function displayMostLikedBooks() {
+        const category = document.getElementById("category").value;
+        const books = bookShelfDB({ category: category })
+          .order("likes desc")
+          .get();
+        const bookHtml = books.map(bookDetails);
+
+        document.getElementById("container").innerHTML = bookHtml.join("");
+      }
+
+      btnElement.addEventListener("click", displayMostLikedBooks);
+    </script>
+  </body>
+</html>
