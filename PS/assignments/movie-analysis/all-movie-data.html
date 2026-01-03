@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>All Movie Data</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <style>
+      .drama-genre {
+        color: var(--pico-color-purple-500);
+        font-weight: bold;
+      }
+      .romance-genre {
+        color: var(--pico-color-pink-500);
+        font-weight: bold;
+      }
+      .comedy-genre {
+        color: var(--pico-color-yellow-600);
+        font-weight: bold;
+      }
+      .action-genre {
+        color: var(--pico-color-red-500);
+        font-weight: bold;
+      }
+      .historical-genre {
+        color: var(--pico-color-blue-500);
+        font-weight: bold;
+      }
+      .most-expensive {
+        background-color: var(--pico-color-yellow-50);
+      }
+      .currency {
+        font-weight: bold;
+      }
+      .blockbuster {
+        background-color: var(--pico-color-yellow-100);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="index.html">Movie Analysis</a></li>
+          <li><a href="all-movie-data.html">All Movie Data</a></li>
+        </ul>
+      </nav>
+      <hgroup>
+        <h1>All Movie Data</h1>
+        <p>Complete movie revenue records using for loop templating</p>
+      </hgroup>
+    </header>
+
+    <main class="container">
+      <section>
+        <h2>Movie Revenue Records</h2>
+        <div class="overflow-auto">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Genre</th>
+                <th>Box Office</th>
+                <th>Satellite Rights</th>
+                <th>Ott Rights</th>
+                <th>Music Rights</th>
+                <th>Total Cost</th>
+                <th>Cost Range</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="container">
+      <small>Learning HTML templating with movie industry data</small>
+    </footer>
+
+    <script>
+      const movieData = [
+        {
+          name: "Kabhi Khushi Kabhi Gham",
+          genre: "Drama",
+          boxOffice: 500,
+          satelliteRights: 120,
+          ottRights: 70,
+          musicRights: 20,
+        },
+        {
+          name: "Dilwale Dulhania Le Jayenge",
+          genre: "Romance",
+          boxOffice: 550,
+          satelliteRights: 130,
+          ottRights: 80,
+          musicRights: 25,
+        },
+        {
+          name: "3 Idiots",
+          genre: "Comedy",
+          boxOffice: 600,
+          satelliteRights: 140,
+          ottRights: 90,
+          musicRights: 30,
+        },
+        {
+          name: "Bajrangi Bhaijaan",
+          genre: "Action",
+          boxOffice: 700,
+          satelliteRights: 160,
+          ottRights: 100,
+          musicRights: 40,
+        },
+        {
+          name: "Padmaavat",
+          genre: "Historical",
+          boxOffice: 800,
+          satelliteRights: 180,
+          ottRights: 110,
+          musicRights: 45,
+        },
+      ];
+
+      function generateTotalCost() {
+        for (let i = 0; i < movieData.length; i++) {
+          let movie = movieData[i];
+          let totalCost =
+            movie.boxOffice +
+            movie.satelliteRights +
+            movie.ottRights +
+            movie.musicRights;
+
+          movie.totalCost = totalCost;
+        }
+      }
+
+      function costRange(totalCost) {
+        if (totalCost >= 1000) return "Blockbuster";
+        if (totalCost >= 800) return "Hit";
+        if (totalCost >= 600) return "Average";
+        return "Low Budget";
+      }
+
+      function displayMoviesTable() {
+        let html = "";
+
+        for (let i = 0; i < movieData.length; i++) {
+          let movie = movieData[i];
+          let range = costRange(movie.totalCost);
+
+          html += `<tr>
+                     <td><strong>${movie.name}</strong></td>
+                     <td><strong>${movie.genre}</strong></td>
+                     <td><strong>₹${movie.boxOffice} Cr</strong></td>
+                     <td><strong>₹${movie.satelliteRights} Cr</strong></td>
+                     <td><strong>₹${movie.ottRights} Cr</strong></td>
+                     <td><strong>₹${movie.musicRights} Cr</strong></td>
+                     <td><strong>₹${movie.totalCost} Cr</strong></td>
+                     <td><strong>${range}</strong></td>
+                   </tr>`;
+        }
+
+        document.getElementById("tbody").innerHTML = html;
+      }
+
+      function movieCostAnalysisReport() {
+        generateTotalCost();
+        displayMoviesTable();
+      }
+
+      document.addEventListener("DOMContentLoaded", movieCostAnalysisReport);
+    </script>
+  </body>
+</html>

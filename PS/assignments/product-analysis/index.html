@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Product Analysis</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <style>
+      .highlight {
+        color: var(--pico-color-green-500);
+        font-weight: bold;
+      }
+      .price {
+        color: var(--pico-color-blue-600);
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="product-analysis.html">Product Analysis</a></li>
+          <li><a href="all-products-data.html">All Products Data</a></li>
+        </ul>
+      </nav>
+      <hgroup>
+        <h1>Product Analysis</h1>
+        <p>Statistical analysis for products</p>
+      </hgroup>
+    </header>
+
+    <main class="container">
+      <section>
+        <h2>Most Expensive Product Details</h2>
+        <hr />
+        <div id="mostExpensive"></div>
+      </section>
+      <section>
+        <h2>Totals And Averages</h2>
+        <hr />
+        <div id="totalsAndAverages"></div>
+      </section>
+      <section>
+        <h2>Product with Highest Rating</h2>
+        <hr />
+        <div id="highestRated"></div>
+      </section>
+      <section>
+        <h2>Products with Price Less Than $50</h2>
+        <hr />
+        <div id="affordableProducts"></div>
+      </section>
+    </main>
+
+    <footer class="container">
+      <small>Learning JavaScript for loops with product data analysis</small>
+    </footer>
+
+    <script>
+      const productsData = [
+        {
+          id: 101,
+          name: "Laptop",
+          price: 999.99,
+          brand: "Dell",
+          category: "Electronics",
+          rating: 4.5,
+        },
+        {
+          id: 102,
+          name: "Smartphone",
+          price: 599.99,
+          brand: "Samsung",
+          category: "Electronics",
+          rating: 4.0,
+        },
+        {
+          id: 103,
+          name: "Running Shoes",
+          price: 79.99,
+          brand: "Nike",
+          category: "Footwear",
+          rating: 4.8,
+        },
+        {
+          id: 104,
+          name: "T-shirt",
+          price: 19.99,
+          brand: "Adidas",
+          category: "Apparel",
+          rating: 4.2,
+        },
+        {
+          id: 105,
+          name: "Coffee Maker",
+          price: 49.99,
+          brand: "Hamilton",
+          category: "Kitchen Appliances",
+          rating: 4.6,
+        },
+      ];
+
+      function findMostExpensiveProduct() {
+        let product = productsData[0];
+
+        for (let i = 0; i < productsData.length; i++) {
+          if (productsData[i].price > product.price) {
+            product = productsData[i];
+          }
+        }
+
+        return product;
+      }
+
+      function displayMostExpensiveProduct() {
+        const product = findMostExpensiveProduct();
+
+        document.getElementById("mostExpensive").innerHTML = `<article>
+           <header>
+             <p>Most Expensive Product</p>
+           </header>
+           <p><strong>Name:</strong> ${product.name}</p>
+           <p><strong>Price: ${product.price}</strong></p>
+           <p><strong>Brand:</strong> ${product.brand}</p>
+           <p><strong>Category:</strong> ${product.category}</p>
+           <footer>
+             <p><strong>Rating: ${product.rating}</strong></p>
+           </footer>
+         </article>`;
+      }
+
+      function calculateTotalsAndAverages() {
+        let totalElectronicProducts = 0;
+        let totalPrice = 0;
+        let totalRating = 0;
+
+        for (let i = 0; i < productsData.length; i++) {
+          totalPrice += productsData[i].price;
+          totalRating += productsData[i].rating;
+
+          if (productsData[i].category === "Electronics") {
+            totalElectronicProducts++;
+          }
+        }
+
+        return {
+          totalElectronicProducts,
+          averagePrice: totalPrice / productsData.length,
+          averageRating: totalRating / productsData.length,
+        };
+      }
+
+      function displayTotalsAndAverages() {
+        const totalAndAverage = calculateTotalsAndAverages();
+
+        document.getElementById("totalsAndAverages").innerHTML = `<article>
+           <header>
+             <p>Product Statistics</p>
+           </header>
+           <p><strong>Total Electronic Products:</strong> ${totalAndAverage.totalElectronicProducts}</p>
+           <p><strong>Average Price: ${totalAndAverage.averagePrice}</strong></p>
+           <footer>
+             <p><strong>Average Rating: ${totalAndAverage.averageRating}</strong></p>
+           </footer>
+        </article>`;
+      }
+
+      function findHighestRatedProduct() {
+        let product = productsData[0];
+
+        for (let i = 1; i < productsData.length; i++) {
+          if (productsData[i].rating > product.rating) {
+            product = productsData[i];
+          }
+        }
+
+        return product;
+      }
+
+      function displayHighestRatedProduct() {
+        const product = findHighestRatedProduct();
+
+        document.getElementById("highestRated").innerHTML = `<article>
+           <header>
+             <p>Highest Rated Product</p>
+           </header>
+           <p><strong>Name:</strong> ${product.name}</p>
+           <p><strong>Price: ${product.price}</strong></p>
+           <p><strong>Brand:</strong> ${product.brand}</p>
+           <p><strong>Category:</strong> ${product.category}</p>
+           <footer>
+             <p><strong>Rating: ${product.rating}</strong></p>
+           </footer>
+         </article>`;
+      }
+
+      function findAffordableProducts() {
+        let products = [];
+
+        for (let i = 0; i < productsData.length; i++) {
+          if (productsData[i].price < 50) {
+            products.push(productsData[i]);
+          }
+        }
+
+        return products;
+      }
+
+      function displayAffordableProducts() {
+        const products = findAffordableProducts();
+        let html = "";
+
+        for (let i = 0; i < products.length; i++) {
+          let product = products[i];
+
+          html += `<article>
+                     <header>
+                       <h3>${product.name}</h3>
+                     </header>
+                     <p><strong>Price: ${product.price}</strong></p>
+                     <p><strong>Brand:</strong> ${product.brand}</p>
+                     <p><strong>Category:</strong> ${product.category}</p>
+                     <footer>
+                       <p><strong>Rating: ${product.rating}</strong></p>
+                     </footer>
+                   </article>`;
+        }
+
+        document.getElementById("affordableProducts").innerHTML = html;
+      }
+
+      function productAnalysisReport() {
+        displayMostExpensiveProduct();
+        displayTotalsAndAverages();
+        displayHighestRatedProduct();
+        displayAffordableProducts();
+      }
+
+      document.addEventListener("DOMContentLoaded", productAnalysisReport);
+    </script>
+  </body>
+</html>

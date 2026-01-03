@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>All Employee Data</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <style>
+      .tech-dept {
+        color: var(--pico-color-blue-500);
+        font-weight: bold;
+      }
+      .finance-dept {
+        color: var(--pico-color-green-500);
+        font-weight: bold;
+      }
+      .sales-dept {
+        color: var(--pico-color-orange-500);
+        font-weight: bold;
+      }
+      .operations-dept {
+        color: var(--pico-color-purple-500);
+        font-weight: bold;
+      }
+      .highest-paid {
+        background-color: var(--pico-color-green-50);
+      }
+      .currency {
+        font-weight: bold;
+      }
+      .hours {
+        color: var(--pico-color-blue-600);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="index.html">Payroll Analysis</a></li>
+          <li><a href="all-employee-data.html">All Employee Data</a></li>
+        </ul>
+      </nav>
+      <hgroup>
+        <h1>All Employee Data</h1>
+        <p>Complete employee payroll records using for loop templating</p>
+      </hgroup>
+    </header>
+
+    <main class="container">
+      <section>
+        <h2>Employee Payroll Records</h2>
+        <div class="overflow-auto">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Hourly Salary</th>
+                <th>Week 1</th>
+                <th>Week 2</th>
+                <th>Week 3</th>
+                <th>Week 4</th>
+                <th>Total Hours</th>
+                <th>Total Salary</th>
+                <th>Bonus</th>
+                <th>Total Compensation</th>
+                <th>Salary Range</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="container">
+      <small>Learning HTML templating with employee payroll data</small>
+    </footer>
+
+    <script>
+      const employeeData = [
+        {
+          name: "Rajesh Kumar",
+          department: "Marketing",
+          hourlySalary: 250,
+          week1Hours: 40,
+          week2Hours: 42,
+          week3Hours: 38,
+          week4Hours: 39,
+          bonusMultiplier: 65,
+        },
+        {
+          name: "Priya Gupta",
+          department: "Sales",
+          hourlySalary: 220,
+          week1Hours: 38,
+          week2Hours: 40,
+          week3Hours: 37,
+          week4Hours: 41,
+          bonusMultiplier: 50,
+        },
+        {
+          name: "Ankit Sharma",
+          department: "Finance",
+          hourlySalary: 280,
+          week1Hours: 35,
+          week2Hours: 36,
+          week3Hours: 39,
+          week4Hours: 38,
+          bonusMultiplier: 80,
+        },
+        {
+          name: "Ritu Singh",
+          department: "Operations",
+          hourlySalary: 300,
+          week1Hours: 42,
+          week2Hours: 41,
+          week3Hours: 43,
+          week4Hours: 40,
+          bonusMultiplier: 45,
+        },
+        {
+          name: "Rahul Verma",
+          department: "IT",
+          hourlySalary: 260,
+          week1Hours: 37,
+          week2Hours: 39,
+          week3Hours: 38,
+          week4Hours: 36,
+          bonusMultiplier: 70,
+        },
+      ];
+
+      const bonusThreshold = 160;
+      function calculatePayrollMatrics() {
+        for (let i = 0; i < employeeData.length; i++) {
+          let employee = employeeData[i];
+
+          let totalHours =
+            employee.week1Hours +
+            employee.week2Hours +
+            employee.week3Hours +
+            employee.week4Hours;
+
+          let totalSalaryForFourWeek = totalHours * employee.hourlySalary;
+          let bonus = 0;
+
+          if (totalHours > bonusThreshold) {
+            let bonusHour = totalHours - bonusThreshold;
+            bonus =
+              bonusHour *
+              employee.hourlySalary *
+              (employee.bonusMultiplier / 100);
+          }
+
+          let totalCompensation = totalSalaryForFourWeek + bonus;
+
+          employee.totalHours = totalHours;
+          employee.totalSalaryForFourWeek = totalSalaryForFourWeek;
+          employee.bonus = bonus;
+          employee.totalCompensation = totalCompensation;
+        }
+      }
+
+      function salaryRange(totalCompensation) {
+        if (totalCompensation >= 50000) return "High Earner";
+        if (totalCompensation >= 40000) return "Medium Earner";
+        return "Standard";
+      }
+
+      function displayEmployeeTable() {
+        let html = "";
+
+        for (let i = 0; i < employeeData.length; i++) {
+          let employee = employeeData[i];
+          let range = salaryRange(employee.totalCompensation);
+
+          html += `<tr>
+                     <td><strong>${employee.name}</strong></td>
+                     <td><strong>${employee.department}</strong></td>
+                     <td><strong>₹${employee.hourlySalary}/hr</strong></td>
+                     <td>${employee.week1Hours}h</td>
+                     <td>${employee.week2Hours}h</td>
+                     <td>${employee.week3Hours}h</td>
+                     <td>${employee.week4Hours}h</td>
+                     <td><strong>${employee.totalHours}h</strong></td>
+                     <td><strong>₹${employee.totalSalaryForFourWeek}</strong></td>
+                     <td><strong>₹${employee.bonus}</strong></td>
+                     <td><strong>₹${employee.totalCompensation}</strong></td>
+                     <td><strong>${range}</strong></td>
+                   </tr>`;
+        }
+
+        document.getElementById("tbody").innerHTML = html;
+      }
+
+      function payrollAnalysisReport() {
+        calculatePayrollMatrics();
+        displayEmployeeTable();
+      }
+
+      document.addEventListener("DOMContentLoaded", payrollAnalysisReport);
+    </script>
+  </body>
+</html>

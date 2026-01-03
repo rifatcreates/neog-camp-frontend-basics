@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>All Sales Data</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <style>
+      .top-performer {
+        color: var(--pico-color-green-500);
+        font-weight: bold;
+      }
+      .medium-performer {
+        color: var(--pico-color-blue-500);
+        font-weight: bold;
+      }
+      .low-performer {
+        color: var(--pico-color-orange-500);
+        font-weight: bold;
+      }
+      .best-performer {
+        background-color: var(--pico-color-green-50);
+      }
+      .currency {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="index.html">Sales Analysis</a></li>
+          <li><a href="all-sales-data.html">All Sales Data</a></li>
+        </ul>
+      </nav>
+      <hgroup>
+        <h1>All Sales Data</h1>
+        <p>Complete sales records using for loop templating</p>
+      </hgroup>
+    </header>
+
+    <main class="container">
+      <section>
+        <h2>Sales Team Performance</h2>
+        <div class="overflow-auto">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Q1 Sales</th>
+                <th>Q2 Sales</th>
+                <th>Q3 Sales</th>
+                <th>Q4 Sales</th>
+                <th>Total Sales</th>
+                <th>Average Sales</th>
+                <th>Performance Grade</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="container">
+      <small>Learning HTML templating with sales data</small>
+    </footer>
+
+    <script>
+      const salesData = [
+        {
+          name: "Rajesh",
+          location: "Mumbai",
+          q1Sales: 120000,
+          q2Sales: 145000,
+          q3Sales: 130000,
+          q4Sales: 155000,
+        },
+        {
+          name: "Sneha",
+          location: "Delhi",
+          q1Sales: 90000,
+          q2Sales: 110000,
+          q3Sales: 95000,
+          q4Sales: 120000,
+        },
+        {
+          name: "Arun",
+          location: "Chennai",
+          q1Sales: 100000,
+          q2Sales: 125000,
+          q3Sales: 115000,
+          q4Sales: 135000,
+        },
+        {
+          name: "Kavita",
+          location: "Kolkata",
+          q1Sales: 85000,
+          q2Sales: 95000,
+          q3Sales: 138000,
+          q4Sales: 255000,
+        },
+        {
+          name: "Sanjay",
+          location: "Mumbai",
+          q1Sales: 110000,
+          q2Sales: 135000,
+          q3Sales: 120000,
+          q4Sales: 140000,
+        },
+        {
+          name: "Divya",
+          location: "Chennai",
+          q1Sales: 95000,
+          q2Sales: 120000,
+          q3Sales: 110000,
+          q4Sales: 130000,
+        },
+      ];
+
+      function totalAndAverageSales() {
+        for (let i = 0; i < salesData.length; i++) {
+          let person = salesData[i];
+
+          let totalSales =
+            person.q1Sales + person.q2Sales + person.q3Sales + person.q4Sales;
+          let averageSales = totalSales / 4;
+
+          person.totalSales = totalSales;
+          person.averageSales = averageSales;
+        }
+      }
+
+      function performanceGrade(averageSales) {
+        if (averageSales >= 140000) return "Top Performer";
+        if (averageSales >= 120000) return "Medium Performer";
+        return "Low Performer";
+      }
+
+      function displaySalesTeamReport() {
+        let html = "";
+
+        for (let i = 0; i < salesData.length; i++) {
+          let person = salesData[i];
+          let grade = performanceGrade(person.averageSales);
+
+          html += `<tr>
+                     <td><strong>${person.name}</strong></td>
+                     <td>${person.location}</td>
+                     <td><strong>₹${person.q1Sales}</strong></td>
+                     <td><strong>₹${person.q2Sales}</strong></td>
+                     <td><strong>₹${person.q3Sales}</strong></td>
+                     <td><strong>₹${person.q4Sales}</strong></td>
+                     <td><strong>₹${person.totalSales}</strong></td>
+                     <td><strong>₹${person.averageSales}</strong></td>
+                     <td><strong>${grade}</strong></td>                   
+                  </tr>`;
+        }
+
+        document.getElementById("tbody").innerHTML = html;
+      }
+
+      function salesTeamReport() {
+        totalAndAverageSales();
+        displaySalesTeamReport();
+      }
+
+      document.addEventListener("DOMContentLoaded", salesTeamReport);
+    </script>
+  </body>
+</html>

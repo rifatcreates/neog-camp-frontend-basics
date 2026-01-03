@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Movie Cost Analysis</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <style>
+      .currency {
+        color: var(--pico-color-green-600);
+        font-weight: bold;
+      }
+      .blockbuster {
+        color: var(--pico-color-yellow-600);
+        font-weight: bold;
+      }
+      .hit {
+        color: var(--pico-color-blue-600);
+        font-weight: bold;
+      }
+      .average {
+        color: var(--pico-color-gray-600);
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="index.html">Movie Analysis</a></li>
+          <li><a href="all-movie-data.html">All Movie Data</a></li>
+        </ul>
+      </nav>
+      <hgroup>
+        <h1>Movie Cost Analysis</h1>
+        <p>
+          Film industry revenue analysis using for loops with multiple revenue
+          streams
+        </p>
+      </hgroup>
+    </header>
+
+    <main class="container">
+      <section>
+        <h2>Most Expensive Movie</h2>
+        <div id="mostExpensive"></div>
+      </section>
+      <section>
+        <h2>Movies Average</h2>
+        <div id="average"></div>
+      </section>
+    </main>
+
+    <footer class="container">
+      <small
+        >Learning JavaScript for loops with movie industry data analysis</small
+      >
+    </footer>
+
+    <script>
+      const movieData = [
+        {
+          name: "Kabhi Khushi Kabhi Gham",
+          genre: "Drama",
+          boxOffice: 500,
+          satelliteRights: 120,
+          ottRights: 70,
+          musicRights: 20,
+        },
+        {
+          name: "Dilwale Dulhania Le Jayenge",
+          genre: "Romance",
+          boxOffice: 550,
+          satelliteRights: 130,
+          ottRights: 80,
+          musicRights: 25,
+        },
+        {
+          name: "3 Idiots",
+          genre: "Comedy",
+          boxOffice: 600,
+          satelliteRights: 140,
+          ottRights: 90,
+          musicRights: 30,
+        },
+        {
+          name: "Bajrangi Bhaijaan",
+          genre: "Action",
+          boxOffice: 700,
+          satelliteRights: 160,
+          ottRights: 100,
+          musicRights: 40,
+        },
+        {
+          name: "Padmaavat",
+          genre: "Historical",
+          boxOffice: 800,
+          satelliteRights: 180,
+          ottRights: 110,
+          musicRights: 45,
+        },
+      ];
+
+      function generateTotalCost() {
+        for (let i = 0; i < movieData.length; i++) {
+          let movie = movieData[i];
+          let totalCost =
+            movie.boxOffice +
+            movie.satelliteRights +
+            movie.ottRights +
+            movie.musicRights;
+
+          movie.totalCost = totalCost;
+        }
+      }
+
+      function findMostExpensiveMovie() {
+        let mostExpensive = movieData[0];
+
+        for (let i = 1; i < movieData.length; i++) {
+          if (mostExpensive.totalCost < movieData[i].totalCost) {
+            mostExpensive = movieData[i];
+          }
+        }
+
+        return mostExpensive;
+      }
+
+      function displayMostExpensiveMovie() {
+        const movie = findMostExpensiveMovie();
+
+        document.getElementById("mostExpensive").innerHTML = `<article>
+           <header>
+             <p>Most Expensive Movie</p>
+           </header>
+           <p><strong>Name:</strong> ${movie.name}<p>
+           <p><strong>Genre:</strong> ${movie.genre}<p>
+           <p><strong>Box Office: ₹${movie.boxOffice} Cr</strong><p>
+           <p><strong>Satellite Rights: ₹${movie.satelliteRights} Cr</strong><p>
+           <p><strong>Ott Rights: ₹${movie.ottRights} Cr</strong><p>
+           <p><strong>Music RIghts: ₹${movie.musicRights} Cr</strong><p>
+           <footer>
+            <p><strong>Total Cost: ₹${movie.totalCost} Cr</strong><p>
+           </footer>
+         </article>`;
+      }
+
+      function calculateMoviesAverage() {
+        let totalCostOfAllMovies = 0;
+        let totalBoxOfficeCost = 0;
+        let totalSatelliteRightsCost = 0;
+        let totalOttCost = 0;
+        let totalMusicRightsCost = 0;
+
+        for (let i = 0; i < movieData.length; i++) {
+          totalCostOfAllMovies += movieData[i].totalCost;
+          totalBoxOfficeCost += movieData[i].boxOffice;
+          totalSatelliteRightsCost += movieData[i].satelliteRights;
+          totalOttCost += movieData[i].ottRights;
+          totalMusicRightsCost += movieData[i].musicRights;
+        }
+
+        return {
+          totalCostOfAllMovies,
+          totalAverageCostOfAllMovies: totalCostOfAllMovies / movieData.length,
+          totalBoxOfficeAverage: totalBoxOfficeCost / movieData.length,
+          totalSatelliteRightsAverage:
+            totalSatelliteRightsCost / movieData.length,
+          totalOttAverage: totalOttCost / movieData.length,
+          totalMusicRightsAverage: totalMusicRightsCost / movieData.length,
+        };
+      }
+
+      function displayMoviesAverage() {
+        const movies = calculateMoviesAverage();
+        document.getElementById("average").innerHTML = `<article>
+           <header>
+             <p>Movies Average</p>
+           </header>
+           <p><strong>Total Cost of All Movies: ₹${movies.totalCostOfAllMovies} Cr</strong></p>
+           <p><strong>Total Average Cost of All Movies: ₹${movies.totalAverageCostOfAllMovies} Cr</strong></p>
+           <br/>
+           <p><strong>Total Box Office Average: ₹${movies.totalBoxOfficeAverage} Cr</strong></p>
+           <p><strong>Total Satellite Rights Average: ₹${movies.totalSatelliteRightsAverage} Cr</strong></p>
+           <p><strong>Total Ott Average: ₹${movies.totalOttAverage} Cr</strong></p>
+           <footer>
+             <p><strong>Total Music Rights Average: ₹${movies.totalMusicRightsAverage} Cr</strong></p>
+           </footer>
+         </article>`;
+      }
+
+      function movieCostAnalysisReport() {
+        generateTotalCost();
+        displayMostExpensiveMovie();
+        displayMoviesAverage();
+      }
+
+      document.addEventListener("DOMContentLoaded", movieCostAnalysisReport);
+    </script>
+  </body>
+</html>

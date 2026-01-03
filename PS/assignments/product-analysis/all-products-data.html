@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>All Products Data</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <style>
+      .high-rating {
+        color: var(--pico-color-green-500);
+        font-weight: bold;
+      }
+      .medium-rating {
+        color: var(--pico-color-blue-500);
+        font-weight: bold;
+      }
+      .low-rating {
+        color: var(--pico-color-orange-500);
+        font-weight: bold;
+      }
+      .expensive {
+        background-color: var(--pico-color-red-50);
+      }
+      .budget {
+        background-color: var(--pico-color-green-50);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="product-analysis.html">Product Analysis</a></li>
+          <li><a href="all-products-data.html">All Products Data</a></li>
+        </ul>
+      </nav>
+      <hgroup>
+        <h1>All Products Data</h1>
+        <p>Complete product catalog using for loop templating</p>
+      </hgroup>
+    </header>
+
+    <main class="container">
+      <section>
+        <h2>Product Catalog</h2>
+        <div class="overflow-auto">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Brand</th>
+                <th>Category</th>
+                <th>Rating</th>
+                <th>Price Range</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="container">
+      <small>Learning HTML templating with product data</small>
+    </footer>
+
+    <script>
+      const productsData = [
+        {
+          id: 101,
+          name: "Laptop",
+          price: 999.99,
+          brand: "Dell",
+          category: "Electronics",
+          rating: 4.5,
+        },
+        {
+          id: 102,
+          name: "Smartphone",
+          price: 599.99,
+          brand: "Samsung",
+          category: "Electronics",
+          rating: 4.0,
+        },
+        {
+          id: 103,
+          name: "Running Shoes",
+          price: 79.99,
+          brand: "Nike",
+          category: "Footwear",
+          rating: 4.8,
+        },
+        {
+          id: 104,
+          name: "T-shirt",
+          price: 19.99,
+          brand: "Adidas",
+          category: "Apparel",
+          rating: 4.2,
+        },
+        {
+          id: 105,
+          name: "Coffee Maker",
+          price: 49.99,
+          brand: "Hamilton",
+          category: "Kitchen Appliances",
+          rating: 4.6,
+        },
+      ];
+
+      function priceRange(price) {
+        if (price >= 500) return "Premium";
+        if (price >= 100) return "Mid-Range";
+        if (price >= 50) return "Standard";
+        return "Budget";
+      }
+
+      function displayProductsData() {
+        let html = "";
+
+        for (let i = 0; i < productsData.length; i++) {
+          let product = productsData[i];
+          let range = priceRange(product.price);
+
+          html += `<tr>
+                     <td>${product.id}</td>
+                     <td><strong>${product.name}</strong></td>
+                     <td><strong>${product.price}</strong></td>
+                     <td>${product.brand}</td>
+                     <td>${product.category}</td>
+                     <td><strong>${product.rating}</strong></td>
+                     <td>${range}</td>
+                   </tr>`;
+        }
+
+        document.getElementById("tbody").innerHTML = html;
+      }
+
+      document.addEventListener("DOMContentLoaded", displayProductsData);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sales Performance Analysis</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <style>
+      .top-performer {
+        color: var(--pico-color-green-500);
+        font-weight: bold;
+      }
+      .medium-performer {
+        color: var(--pico-color-blue-500);
+        font-weight: bold;
+      }
+      .low-performer {
+        color: var(--pico-color-orange-500);
+        font-weight: bold;
+      }
+      .currency {
+        color: var(--pico-color-green-600);
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="sales-analysis.html">Sales Analysis</a></li>
+          <li><a href="all-sales-data.html">All Sales Data</a></li>
+        </ul>
+      </nav>
+      <hgroup>
+        <h1>Sales Performance Analysis</h1>
+        <p>Quarterly sales analysis using for loops with business analytics</p>
+      </hgroup>
+    </header>
+
+    <main class="container">
+      <section>
+        <h2>Best Performer</h2>
+        <div id="bestPerformer"></div>
+      </section>
+      <section>
+        <h2>Top Performers</h2>
+        <div id="topPerformers"></div>
+      </section>
+      <section>
+        <h2>Sales Averages</h2>
+        <div id="averages"></div>
+      </section>
+    </main>
+
+    <footer class="container">
+      <small>Learning JavaScript for loops with sales data analysis</small>
+    </footer>
+
+    <script>
+      const salesData = [
+        {
+          name: "Rajesh",
+          location: "Mumbai",
+          q1Sales: 120000,
+          q2Sales: 145000,
+          q3Sales: 130000,
+          q4Sales: 155000,
+        },
+        {
+          name: "Sneha",
+          location: "Delhi",
+          q1Sales: 90000,
+          q2Sales: 110000,
+          q3Sales: 95000,
+          q4Sales: 120000,
+        },
+        {
+          name: "Arun",
+          location: "Chennai",
+          q1Sales: 100000,
+          q2Sales: 125000,
+          q3Sales: 115000,
+          q4Sales: 135000,
+        },
+        {
+          name: "Kavita",
+          location: "Kolkata",
+          q1Sales: 85000,
+          q2Sales: 95000,
+          q3Sales: 138000,
+          q4Sales: 255000,
+        },
+        {
+          name: "Sanjay",
+          location: "Mumbai",
+          q1Sales: 110000,
+          q2Sales: 135000,
+          q3Sales: 120000,
+          q4Sales: 140000,
+        },
+        {
+          name: "Divya",
+          location: "Chennai",
+          q1Sales: 95000,
+          q2Sales: 120000,
+          q3Sales: 110000,
+          q4Sales: 130000,
+        },
+      ];
+
+      function totalAndAverageSales() {
+        for (let i = 0; i < salesData.length; i++) {
+          let person = salesData[i];
+
+          let totalSales =
+            person.q1Sales + person.q2Sales + person.q3Sales + person.q4Sales;
+          let averageSales = totalSales / 4;
+
+          person.totalSales = totalSales;
+          person.averageSales = averageSales;
+        }
+      }
+
+      function findBestPerformer() {
+        let bestPerformer = salesData[0];
+
+        for (let i = 1; i < salesData.length; i++) {
+          if (bestPerformer.totalSales < salesData[i].totalSales) {
+            bestPerformer = salesData[i];
+          }
+        }
+
+        return bestPerformer;
+      }
+
+      function displayBestPerformer() {
+        const person = findBestPerformer();
+
+        document.getElementById("bestPerformer").innerHTML = `<article>
+           <header>
+             <p>Best Performer<p>
+           </header>
+           <p><strong>Name:</strong> ${person.name}</p>
+           <p><strong>Location:</strong> ${person.location}</p>
+           <footer>
+             <p><strong>Total Sales: ₹${person.totalSales}</strong></p>
+           </footer>
+         </article>`;
+      }
+
+      function findTopPerformers() {
+        let topPerformers = [];
+
+        for (let i = 0; i < salesData.length; i++) {
+          if (salesData[i].averageSales >= 140000) {
+            topPerformers.push(salesData[i]);
+          }
+        }
+
+        return topPerformers;
+      }
+
+      function displayTopPerformers() {
+        const persons = findTopPerformers();
+
+        let html = `<article>
+                      <header>
+                        <p>Top Performers Summary</p>
+                      </header>
+                      <p><strong>Total No. of Top Performers:</strong> ${persons.length}</p>
+                    </article>`;
+
+        for (let i = 0; i < persons.length; i++) {
+          html += `<article>
+                     <header>
+                       <p>${persons[i].name}</p>
+                     </header>
+                     <p><strong>Location:</strong> ${persons[i].location}</p>
+                     <p><strong>Average Sales: $${persons[i].averageSales}</strong></p>
+                     <footer>
+                       <p><strong>Total Sales: $${persons[i].totalSales}</strong></p>
+                     </footer>
+                   </article>`;
+        }
+
+        document.getElementById("topPerformers").innerHTML = html;
+      }
+
+      function calculateSalesAverages() {
+        let totalSales = 0;
+        let q1Total = 0;
+        let q2Total = 0;
+        let q3Total = 0;
+        let q4Total = 0;
+
+        for (let i = 0; i < salesData.length; i++) {
+          let person = salesData[i];
+
+          q1Total += person.q1Sales;
+          q2Total += person.q2Sales;
+          q3Total += person.q3Sales;
+          q4Total += person.q4Sales;
+
+          totalSales +=
+            person.q1Sales + person.q2Sales + person.q3Sales + person.q4Sales;
+        }
+
+        return {
+          totalSales,
+          totalAverageSales: totalSales / salesData.length,
+          q1AverageSales: q1Total / salesData.length,
+          q2AverageSales: q2Total / salesData.length,
+          q3AverageSales: q3Total / salesData.length,
+          q4AverageSales: q4Total / salesData.length,
+        };
+      }
+
+      function displaySalesAverages() {
+        const averages = calculateSalesAverages();
+
+        document.getElementById("averages").innerHTML = `<article>
+           <header>
+             <p>Quarterly Sales Averages</p>
+           </header>
+           <p><strong>Q1 Average Sales: ₹${averages.q1AverageSales}</strong></p>
+           <p><strong>Q2 Average Sales: ₹${Math.ceil(
+             averages.q2AverageSales
+           )}</strong></p>
+           <p><strong>Q3 Average Sales: ₹${averages.q3AverageSales}</strong></p>
+           <p><strong>Q4 Average Sales: ₹${Math.ceil(
+             averages.q4AverageSales
+           )}</strong></p>
+           <br/>
+           <p><strong>Total Sales: ₹${averages.totalSales}</strong></p>
+           <footer>
+             <p><strong>Total Average Sales: ₹${
+               averages.totalAverageSales
+             }</strong></p>
+           </footer>
+         </article>`;
+      }
+
+      function salesReportAnalysis() {
+        totalAndAverageSales();
+        displayBestPerformer();
+        displayTopPerformers();
+        displaySalesAverages();
+      }
+
+      document.addEventListener("DOMContentLoaded", salesReportAnalysis);
+    </script>
+  </body>
+</html>

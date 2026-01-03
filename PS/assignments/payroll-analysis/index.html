@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Employee Payroll Analysis</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <style>
+      .currency {
+        color: var(--pico-color-green-600);
+        font-weight: bold;
+      }
+      .hours {
+        color: var(--pico-color-blue-600);
+        font-weight: bold;
+      }
+      .bonus {
+        color: var(--pico-color-orange-500);
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="index.html">Payroll Analysis</a></li>
+          <li><a href="all-employee-data.html">All Employee Data</a></li>
+        </ul>
+      </nav>
+      <hgroup>
+        <h1>Employee Payroll Analysis</h1>
+        <p>HR analytics and payroll calculations using for loops</p>
+      </hgroup>
+    </header>
+
+    <main class="container">
+      <section>
+        <h2>Most Paid Employee</h2>
+        <div id="mostPaid"></div>
+      </section>
+      <section>
+        <h2>Company Averages</h2>
+        <div id="averages"></div>
+      </section>
+    </main>
+
+    <footer class="container">
+      <small>Learning JavaScript for loops with payroll data analysis</small>
+    </footer>
+
+    <script>
+      const employeeData = [
+        {
+          name: "Rajesh Kumar",
+          department: "Marketing",
+          hourlySalary: 250,
+          week1Hours: 40,
+          week2Hours: 42,
+          week3Hours: 38,
+          week4Hours: 39,
+          bonusMultiplier: 65,
+        },
+        {
+          name: "Priya Gupta",
+          department: "Sales",
+          hourlySalary: 220,
+          week1Hours: 38,
+          week2Hours: 40,
+          week3Hours: 37,
+          week4Hours: 41,
+          bonusMultiplier: 50,
+        },
+        {
+          name: "Ankit Sharma",
+          department: "Finance",
+          hourlySalary: 280,
+          week1Hours: 35,
+          week2Hours: 36,
+          week3Hours: 39,
+          week4Hours: 38,
+          bonusMultiplier: 80,
+        },
+        {
+          name: "Ritu Singh",
+          department: "Operations",
+          hourlySalary: 300,
+          week1Hours: 42,
+          week2Hours: 41,
+          week3Hours: 43,
+          week4Hours: 40,
+          bonusMultiplier: 45,
+        },
+        {
+          name: "Rahul Verma",
+          department: "IT",
+          hourlySalary: 260,
+          week1Hours: 37,
+          week2Hours: 39,
+          week3Hours: 38,
+          week4Hours: 36,
+          bonusMultiplier: 70,
+        },
+      ];
+
+      const bonusThreshold = 160;
+      function calculatePayrollMatrics() {
+        for (let i = 0; i < employeeData.length; i++) {
+          let employee = employeeData[i];
+
+          let totalHours =
+            employee.week1Hours +
+            employee.week2Hours +
+            employee.week3Hours +
+            employee.week4Hours;
+
+          let totalSalaryForFourWeek = totalHours * employee.hourlySalary;
+          let bonus = 0;
+
+          if (totalHours > bonusThreshold) {
+            let bonusHour = totalHours - bonusThreshold;
+            bonus =
+              bonusHour *
+              employee.hourlySalary *
+              (employee.bonusMultiplier / 100);
+          }
+
+          let totalCompensation = totalSalaryForFourWeek + bonus;
+
+          employee.totalHours = totalHours;
+          employee.totalSalaryForFourWeek = totalSalaryForFourWeek;
+          employee.bonus = bonus;
+          employee.totalCompensation = totalCompensation;
+        }
+      }
+
+      function findMostPaidEmployee() {
+        let employee = employeeData[0];
+
+        for (let i = 1; i < employeeData.length; i++) {
+          if (employee.totalCompensation < employeeData[i].totalCompensation) {
+            employee = employeeData[i];
+          }
+        }
+
+        return employee;
+      }
+
+      function displayMostPaidEmployee() {
+        const employee = findMostPaidEmployee();
+        document.getElementById("mostPaid").innerHTML = `<article>
+           <header>
+             <p>Most Paid Employee</p>
+           </header>
+           <p><strong>Name:</strong> ${employee.name}</p>
+           <p><strong>Department:</strong> ${employee.department}</p>
+           <p><strong>Total Hours Worked: ${employee.totalHours} hours</strong></p>
+           <p><strong>Total Salary: ₹${employee.totalSalaryForFourWeek}</strong></p>
+           <p><strong>Bonus: ₹${employee.bonus}</strong></p>
+           <footer>
+             <p><strong>Total Compensation: ₹${employee.totalCompensation}</strong></p>
+           </footer>
+         </article>`;
+      }
+
+      function calculateCompanyAverages() {
+        let totalHoursWorkedByAll = 0;
+        let totalHoursOfWeekOne = 0;
+        let totalHoursOfWeekTwo = 0;
+        let totalHoursOfWeekThree = 0;
+        let totalHoursOfWeekFour = 0;
+
+        for (let i = 0; i < employeeData.length; i++) {
+          let employee = employeeData[i];
+
+          totalHoursWorkedByAll +=
+            employee.week1Hours +
+            employee.week2Hours +
+            employee.week3Hours +
+            employee.week4Hours;
+
+          totalHoursOfWeekOne += employee.week1Hours;
+          totalHoursOfWeekTwo += employee.week2Hours;
+          totalHoursOfWeekThree += employee.week3Hours;
+          totalHoursOfWeekFour += employee.week4Hours;
+        }
+
+        return {
+          totalHoursWorkedByAll,
+          totalAverageHoursOfCompany:
+            totalHoursWorkedByAll / employeeData.length,
+          totalAverageOfWeekOne: totalHoursOfWeekOne / employeeData.length,
+          totalAverageOfWeekTwo: totalHoursOfWeekTwo / employeeData.length,
+          totalAverageOfWeekThree: totalHoursOfWeekThree / employeeData.length,
+          totalAverageOfWeekFour: totalHoursOfWeekFour / employeeData.length,
+        };
+      }
+
+      function displayCompanyAverages() {
+        const averages = calculateCompanyAverages();
+        document.getElementById("averages").innerHTML = `<article>
+           <header>
+             <p>Company Averages</p>
+           </header>
+           <p><strong>Total Hours Worked by All: <br/>${averages.totalHoursWorkedByAll} hours</strong></p>
+           <p><strong>Total Average Hours of Company: <br/>${averages.totalAverageHoursOfCompany} per employee</strong></p>
+           <br/>
+           <p><strong>Total Average of Week One: <br/>${averages.totalAverageOfWeekOne} hours</strong></p>
+           <p><strong>Total Average of Week Two: <br/>${averages.totalAverageOfWeekTwo} hours</strong></p>
+           <p><strong>Total Average of Week Three: <br/>${averages.totalAverageOfWeekThree} hours</strong></p>
+           <footer>
+             <p><strong>Total Average of Week Four: <br/>${averages.totalAverageOfWeekFour} hours</strong></p>
+           </footer>
+         </article>`;
+      }
+
+      function payrollAnalysisReport() {
+        calculatePayrollMatrics();
+        displayMostPaidEmployee();
+        displayCompanyAverages();
+      }
+
+      document.addEventListener("DOMContentLoaded", payrollAnalysisReport);
+    </script>
+  </body>
+</html>
