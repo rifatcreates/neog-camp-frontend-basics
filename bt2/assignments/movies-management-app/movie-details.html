@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Movie Details</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <header class="bg-light">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg">
+          <a href="index.html" class="navbar-brand">Movie Database</a>
+          <button
+            type="button"
+            class="navbar-toggler"
+            data-bs-target="#navbarId"
+            data-bs-toggle="collapse"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div id="navbarId" class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a href="index.html" class="nav-link">Home</a>
+              </li>
+              <li class="nav-item">
+                <a href="movies.html" class="nav-link">Movies</a>
+              </li>
+              <li class="nav-item">
+                <a href="report.html" class="nav-link">Report</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <section id="movieDetails" class="pt-3">
+        <div class="container">
+          <h1>Movie Details</h1>
+          <div id="card-container"></div>
+        </div>
+      </section>
+    </main>
+    <script>
+      function getParameterByName(name) {
+        const url = new URL(window.location.href);
+        return url.searchParams.get(name);
+      }
+
+      const movieId = getParameterByName("id");
+
+      const movies = [
+        {
+          id: 1,
+          name: "Movie 1",
+          genre: "Action",
+          details: "This is an action movie.",
+        },
+        {
+          id: 2,
+          name: "Movie 2",
+          genre: "Drama",
+          details: "This is a drama movie.",
+        },
+        {
+          id: 3,
+          name: "Movie 3",
+          genre: "Comedy",
+          details: "This is a comedy movie.",
+        },
+      ];
+
+      const movie = movies.find((m) => m.id === parseInt(movieId));
+      const container = document.getElementById("card-container");
+
+      if (movie) {
+        const cardHTML = `
+          <div class="card">
+                <div class="ps-3 pt-2">
+                    <h2>${movie.name}</h2>
+                    <p><strong>Genre:</strong> ${movie.genre}</p>
+                    <p><strong>Details:</strong> ${movie.details}</p>
+                </div>
+          </div>
+        `;
+        container.innerHTML = cardHTML;
+      } else {
+        container.innerHTML = "<div>Movie not found.</div>";
+      }
+    </script>
+  </body>
+</html>

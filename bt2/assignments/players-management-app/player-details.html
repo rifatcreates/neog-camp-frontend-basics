@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Player Details</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">Cricket Player Database</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="players.html">Players</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="report.html">Report</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Player Details Section -->
+    <section id="player-details" class="pt-3">
+      <div class="container">
+        <h1>Player Details</h1>
+        <div id="card-container"></div>
+      </div>
+    </section>
+
+    <script>
+      function getParameterByName(name) {
+        const url = new URL(window.location.href);
+        return url.searchParams.get(name);
+      }
+
+      const playerId = getParameterByName("id");
+
+      const players = [
+        { id: 1, name: "Player 1", country: "India", role: "Batsman" },
+        { id: 2, name: "Player 2", country: "Australia", role: "Bowler" },
+      ];
+
+      const player = players.find((p) => p.id === parseInt(playerId));
+      const container = document.getElementById("card-container");
+
+      if (player) {
+        const cardHTML = `
+        <div class="card">
+          <div class="card-header">
+            <h2>${player.name}</h2>
+          </div>
+          <div class="card-body">
+            <p><strong>Country:</strong> ${player.country}</p>
+            <p><strong>Role:</strong> ${player.role}</p>
+          </div>
+        </div>
+      `;
+        container.innerHTML = cardHTML;
+      } else {
+        container.innerHTML = "<div>Player not found.</div>";
+      }
+    </script>
+  </body>
+</html>

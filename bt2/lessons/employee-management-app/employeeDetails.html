@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Employee Details</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+
+  <body>
+    <header class="bg-dark text-light">
+      <div class="text-center">
+        <h1 class="py-4">Employee Details</h1>
+      </div>
+    </header>
+    <main>
+      <section id="employeeDetail" class="container"></section>
+    </main>
+
+    <script>
+      // database
+      let employees = [
+        {
+          id: "1",
+          name: "John Doe",
+          title: "Software Developer",
+          department: "IT",
+        },
+        {
+          id: "2",
+          name: "Jane Smith",
+          title: "Designer",
+          department: "Design",
+        },
+        {
+          id: "3",
+          name: "Bob Johnson",
+          title: "Project Manager",
+          department: "Management",
+        },
+      ];
+
+      function getParameterById(id) {
+        // get the id from the URL
+        let url = new URL(window.location.href);
+
+        return url.searchParams.get(id);
+      }
+
+      let employeeId = getParameterById("id");
+
+      // find that id in the database
+      let employee;
+      for (let i = 0; i < employees.length; i++) {
+        if (employees[i].id === employeeId) {
+          employee = employees[i];
+        }
+      }
+
+      // display the details on the view
+      let employeeDetailElement = document.getElementById("employeeDetail");
+      if (employee) {
+        employeeDetailElement.innerHTML = `
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title">${employee.name}</h2>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><strong>Name:</strong> ${employee.name}</li>
+              <li class="list-group-item"><strong>Designation:</strong> ${employee.title}</li>
+              <li class="list-group-item"><strong>Department:</strong> ${employee.department}</li>
+            </ul>
+          </div>
+        </div>
+      `;
+      } else {
+        employeeDetailElement.innerHTML = "Employee not Found.";
+      }
+    </script>
+  </body>
+</html>
